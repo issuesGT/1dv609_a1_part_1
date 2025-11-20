@@ -1,6 +1,7 @@
 package com.lab;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,7 +28,6 @@ public class PasswordTest {
         return (IPassword) new Password(s);
         // return (IPassword) new BugDoesNotTrim(s);
         // return (IPassword) new BugToShortPassword(s);
-        // return (IPassword) new BugToShortPassword(s);
         // return (IPassword) new BugVeryShort(s);
         // return (IPassword) new BugWrongExceptionMessage(s);
         // return (IPassword) new BugMissingPasswordLengthCheck(s);
@@ -40,4 +40,56 @@ public class PasswordTest {
     public void shouldAlwaysPass() throws Exception {
         assertTrue(true);
     }
+
+    @Test
+    public void isPasswordShort() throws Exception {
+        assertThrows(Exception.class,() -> getPassword("d1dds"), "To short password");
+    }
+
+    @Test
+    public void isPasswordShortWithSpaces() throws Exception {
+        assertThrows(Exception.class,() -> getPassword("      dss1ddd      "), "Passwords has leading or trailing white spaces.");
+    }
+
+    @Test
+    public void isPasswordWithOutNumber() {
+        assertThrows(Exception.class,() -> getPassword("dsadddsdadsaa"));
+    }
+
+    @Test
+    public void isOneBeneathLimitOfPassword() throws Exception {
+        assertThrows(Exception.class,() -> getPassword("dsaad1s1ass"), "To short password");
+    }
+
+    @Test
+    public void isCorrectThrowMessage() throws Exception {
+        Exception thrown = assertThrows(Exception.class, () -> getPassword("dsa2das"));
+
+        assertEquals("To short password", thrown.getMessage());
+    }
+    
+    @Test
+    public void isPasswordTheSame() throws Exception {
+
+        
+        var c = getPassword("dsasada22131dasdas");
+        var t = getPassword("dsasada22131dasdas");
+
+        assertTrue(() -> c.isPasswordSame(t));
+
+
+    }
+
+    @Test
+    public void isPasswordNotTheSame() throws Exception {
+
+        
+        var c = getPassword("dsasada22131dasdas");
+        var t = getPassword("dsasada21dasdas");
+
+        assertFalse(() -> c.isPasswordSame(t));
+
+
+    }
+    
 }

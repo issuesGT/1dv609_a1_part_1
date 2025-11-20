@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SwedishSocialSecurityNumberTest {
     
     private SSNHelper helper;
-    
+
     @BeforeEach
     public void setUp() {
         helper = new SSNHelper();
