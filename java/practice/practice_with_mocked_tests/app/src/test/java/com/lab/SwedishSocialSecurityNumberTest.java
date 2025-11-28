@@ -1,7 +1,6 @@
 package com.lab;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -43,7 +42,7 @@ public class SwedishSocialSecurityNumberTest {
     }
 
     @Test
-    public void isNotCorrectLength() throws Exception {
+    public void shouldRejectIncorrectLength() throws Exception {
         SSNHelper mock = mock(SSNHelper.class);
 
         when(mock.isCorrectLength("9001-0017")).thenReturn(false);
@@ -55,7 +54,7 @@ public class SwedishSocialSecurityNumberTest {
     }
 
     @Test
-    public void doesTrim() {
+    public void shouldTrimPassword() {
         SSNHelper mock = mock(SSNHelper.class);
 
         when(mock.isCorrectLength("900101-0017")).thenReturn(true);
@@ -75,7 +74,7 @@ public class SwedishSocialSecurityNumberTest {
     }
 
     @Test
-    public void isNotCorrectYear() {
+    public void shouldRejectInvalidYear() {
         SSNHelper mock = mock(SSNHelper.class);
 
         when(mock.isCorrectLength("900101-0017")).thenReturn(true);
@@ -96,7 +95,7 @@ public class SwedishSocialSecurityNumberTest {
     }
 
     @Test
-    public void isNotCorrectFormat() throws Exception {
+    public void shouldRejectIncorrectFormat() throws Exception {
         SSNHelper mock = mock(SSNHelper.class);
         
         when(mock.isCorrectLength("90010110017")).thenReturn(true);
@@ -111,7 +110,7 @@ public class SwedishSocialSecurityNumberTest {
     }
 
     @Test
-    public void isNotCorrectDay() {
+    public void shouldRejectIncorrectDay() {
         SSNHelper mock = mock(SSNHelper.class);
         
         when(mock.isCorrectLength("900132-0017")).thenReturn(true);
@@ -130,7 +129,7 @@ public class SwedishSocialSecurityNumberTest {
     }
 
     @Test
-    public void isNotCorrectMonth() {
+    public void shouldRejectIncorrectMonth() {
         SSNHelper mock = mock(SSNHelper.class);
         
         when(mock.isCorrectLength("901301-0017")).thenReturn(true);
@@ -147,7 +146,7 @@ public class SwedishSocialSecurityNumberTest {
     }
 
     @Test
-    public void isNotCorrectLuhn() throws Exception {
+    public void shouldRejectIncorrectLuhn() throws Exception {
         SSNHelper mock = mock(SSNHelper.class);
         
         when(mock.isCorrectLength("90010110017")).thenReturn(true);
@@ -168,60 +167,60 @@ public class SwedishSocialSecurityNumberTest {
     }
 
     @Test
-    public void helperIsCorrectLength() {
+    public void shouldReturnHelperCorrectLength() {
         assertTrue(helper.isCorrectLength("900101-0017"));
     }
 
     @Test
-    public void helperIsWrongLength() {
+    public void shouldRejectHelperIncorrectLength() {
         assertFalse(helper.isCorrectLength("00101-0017"));
     }
     
-    @Test
-    public void helperIsCorrectDayFirstMiddelLast() {
+    @Test 
+    public void shouldReturnHelperCorrectDay() {
         assertTrue(helper.isValidDay("1"));
         assertTrue(helper.isValidDay("31"));
         assertTrue(helper.isValidDay("15"));
     }
 
     @Test
-    public void helperIsNotCorrectDay() {
+    public void shouldRejectHelperIncorrectDay() {
         assertFalse(helper.isValidDay("-1"));
         assertFalse(helper.isValidDay("0"));
         assertFalse(helper.isValidDay("32"));
     }
 
     @Test
-    public void helperIsCorrectMonthFirstMiddleLast() {
+    public void shouldReturnHelperCorrectMonth() {
         assertTrue(helper.isValidMonth("1"));
         assertTrue(helper.isValidMonth("6"));
         assertTrue(helper.isValidMonth("12"));
     }
 
     @Test
-    public void helperIsNotCorrectMonth() {
+    public void shouldRejectHelperIncorrectMonth() {
         assertFalse(helper.isValidMonth("-1"));
         assertFalse(helper.isValidMonth("0"));
         assertFalse(helper.isValidMonth("13"));
     }
 
     @Test
-    public void helperIsCorrectFormat() {
+    public void shouldReturnHelperCorrectFormat() {
         assertTrue(helper.isCorrectFormat("900101-0017"));
     }
 
     @Test
-    public void helperIsNotCorrectFormat() {
+    public void shouldRejectHelperIncorrectFormat() {
         assertFalse(helper.isCorrectFormat("9001010017"));
     }
 
     @Test
-    public void helperIsCorrectLuhn() {
+    public void shouldReturnHelperIsCorrectLuhn() {
         assertTrue(helper.luhnIsCorrect("900101-0017"));
     }
 
     @Test
-    public void helperIsNotCorrectLuhn() {
+    public void shouldRejectHelperIsIncorrectLuhn() {
         assertFalse(helper.luhnIsCorrect("900101 0017"));
     }
 }

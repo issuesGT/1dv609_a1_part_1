@@ -8,6 +8,11 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
+    id 'jacoco'
+}
+
+jacoco {
+    toolVersion = "0.8.12"
 }
 
 repositories {
@@ -41,6 +46,11 @@ application {
     mainClass = 'com.lab.Main'
 }
 
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
@@ -48,5 +58,14 @@ tasks.named('test') {
     testLogging {
         events "passed", "skipped", "failed"
         showStandardStreams = true
+    }
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = false
+        csv.required = false
+        html.required = true
     }
 }

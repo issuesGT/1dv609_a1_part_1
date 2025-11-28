@@ -1,10 +1,8 @@
 package com.lab;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * Test class for Password implementations.
  * 
@@ -25,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PasswordTest {
     private IPassword getPassword(String s) throws Exception {
+
         return (IPassword) new Password(s);
         // return (IPassword) new BugDoesNotTrim(s);
         // return (IPassword) new BugToShortPassword(s);
@@ -42,34 +41,34 @@ public class PasswordTest {
     }
 
     @Test
-    public void isPasswordShort() throws Exception {
+    public void shouldRejectPasswordToShort() throws Exception {
         assertThrows(Exception.class,() -> getPassword("d1dds"), "To short password");
     }
 
     @Test
-    public void isPasswordShortWithSpaces() throws Exception {
+    public void shouldRejectPasswordToShortWithWhiteSpace() throws Exception {
         assertThrows(Exception.class,() -> getPassword("      dss1ddd      "), "Passwords has leading or trailing white spaces.");
     }
 
     @Test
-    public void isPasswordWithOutNumber() {
+    public void shouldRejectPasswordWithoutNumber() {
         assertThrows(Exception.class,() -> getPassword("dsadddsdadsaa"));
     }
 
     @Test
-    public void isOneBeneathLimitOfPassword() throws Exception {
+    public void shouldRejectPasswordOneBeneathLimit() throws Exception {
         assertThrows(Exception.class,() -> getPassword("dsaad1s1ass"), "To short password");
     }
 
     @Test
-    public void isCorrectThrowMessage() throws Exception {
+    public void shouldReturnCorrectExceptionMessageForToShortPassword() throws Exception {
         Exception thrown = assertThrows(Exception.class, () -> getPassword("dsa2das"));
 
         assertEquals("To short password", thrown.getMessage());
     }
     
     @Test
-    public void isPasswordTheSame() throws Exception {
+    public void shouldReturnIfPasswordIsSame() throws Exception {
 
         
         var c = getPassword("dsasada22131dasdas");
@@ -81,15 +80,10 @@ public class PasswordTest {
     }
 
     @Test
-    public void isPasswordNotTheSame() throws Exception {
-
-        
+    public void shouldRejectIfPasswordIsNotSame() throws Exception {
         var c = getPassword("dsasada22131dasdas");
         var t = getPassword("dsasada21dasdas");
 
         assertFalse(() -> c.isPasswordSame(t));
-
-
     }
-    
 }
