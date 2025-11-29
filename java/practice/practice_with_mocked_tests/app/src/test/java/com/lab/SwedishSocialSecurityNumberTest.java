@@ -20,14 +20,14 @@ public class SwedishSocialSecurityNumberTest {
     public void shouldAcceptValidSSN() throws Exception {
 
         SSNHelper mock = mock(SSNHelper.class);
-
+        
         when(mock.isCorrectLength("900101-0017")).thenReturn(true);
         when(mock.isCorrectFormat("900101-0017")).thenReturn(true);
         when(mock.isValidDay("01")).thenReturn(true);
         when(mock.isValidMonth("01")).thenReturn(true);
         when(mock.luhnIsCorrect("900101-0017")).thenReturn(true);
 
-        SwedishSocialSecurityNumber ssn = new SwedishSocialSecurityNumber("900101-0017", mock);
+        BuggySwedishSocialSecurityNumberWrongYear ssn = new BuggySwedishSocialSecurityNumberWrongYear("900101-0017", mock);
         
         assertEquals("90", ssn.getYear());
         assertEquals("01", ssn.getMonth());
@@ -47,7 +47,7 @@ public class SwedishSocialSecurityNumberTest {
 
         when(mock.isCorrectLength("9001-0017")).thenReturn(false);
 
-        Exception thrown = assertThrows(Exception.class,() -> new SwedishSocialSecurityNumber("9001-0017", mock));
+        Exception thrown = assertThrows(Exception.class,() -> new BuggySwedishSocialSecurityNumberWrongYear("9001-0017", mock));
         assertEquals("To short, must be 11 characters", thrown.getMessage());
 
         verify(mock).isCorrectLength("9001-0017");
@@ -63,7 +63,7 @@ public class SwedishSocialSecurityNumberTest {
         when(mock.isValidMonth("01")).thenReturn(true);
         when(mock.luhnIsCorrect("900101-0017")).thenReturn(true);
 
-        assertDoesNotThrow( () -> new SwedishSocialSecurityNumber(" 900101-0017 ", mock));
+        assertDoesNotThrow( () -> new BuggySwedishSocialSecurityNumberWrongYear(" 900101-0017 ", mock));
 
 
         verify(mock).isCorrectLength("900101-0017");
@@ -83,7 +83,7 @@ public class SwedishSocialSecurityNumberTest {
         when(mock.isValidMonth("01")).thenReturn(true);
         when(mock.luhnIsCorrect("900101-0017")).thenReturn(true);
 
-        var thrown = assertDoesNotThrow(() -> new SwedishSocialSecurityNumber("900101-0017", mock));
+        var thrown = assertDoesNotThrow(() -> new BuggySwedishSocialSecurityNumberWrongYear("900101-0017", mock));
 
         assertEquals("90", thrown.getYear());
 
@@ -101,7 +101,7 @@ public class SwedishSocialSecurityNumberTest {
         when(mock.isCorrectLength("90010110017")).thenReturn(true);
         when(mock.isCorrectFormat("90010110017")).thenReturn(false);
 
-        Exception thrown = assertThrows(Exception.class, () -> new SwedishSocialSecurityNumber("90010110017", mock));
+        Exception thrown = assertThrows(Exception.class, () -> new BuggySwedishSocialSecurityNumberWrongYear("90010110017", mock));
 
         assertEquals("Incorrect format, must be: YYMMDD-XXXX", thrown.getMessage());
 
@@ -118,7 +118,7 @@ public class SwedishSocialSecurityNumberTest {
         when(mock.isValidMonth("01")).thenReturn(true);
         when(mock.isValidDay("32")).thenReturn(false);
 
-        Exception thrown = assertThrows(Exception.class, () -> new SwedishSocialSecurityNumber("900132-0017", mock));
+        Exception thrown = assertThrows(Exception.class, () -> new BuggySwedishSocialSecurityNumberWrongYear("900132-0017", mock));
 
         assertEquals("Invalid day in SSN", thrown.getMessage());
 
@@ -136,7 +136,7 @@ public class SwedishSocialSecurityNumberTest {
         when(mock.isCorrectFormat("901301-0017")).thenReturn(true);
         when(mock.isValidMonth("13")).thenReturn(false);
 
-        Exception thrown = assertThrows(Exception.class, () -> new SwedishSocialSecurityNumber("901301-0017", mock));
+        Exception thrown = assertThrows(Exception.class, () -> new BuggySwedishSocialSecurityNumberWrongYear("901301-0017", mock));
 
         assertEquals("Invalid month in SSN", thrown.getMessage());
 
@@ -155,7 +155,7 @@ public class SwedishSocialSecurityNumberTest {
         when(mock.isValidDay("01")).thenReturn(true);
         when(mock.luhnIsCorrect("900101-0017")).thenReturn(false);
 
-        Exception thrown = assertThrows(Exception.class, () -> new SwedishSocialSecurityNumber("90010110017", mock));
+        Exception thrown = assertThrows(Exception.class, () -> new BuggySwedishSocialSecurityNumberWrongYear("90010110017", mock));
 
         assertEquals("Invalid SSN according to Luhn's algorithm", thrown.getMessage());
 
@@ -172,8 +172,13 @@ public class SwedishSocialSecurityNumberTest {
     }
 
     @Test
-    public void shouldRejectHelperIncorrectLength() {
+    public void shouldRejectHelperIncorrectLengthToShort() {
         assertFalse(helper.isCorrectLength("00101-0017"));
+    }
+
+    @Test
+    public void shouldRejectHelperIncorrectLengthToLong() {
+        assertFalse(helper.isCorrectLength("9090101-00171"));
     }
     
     @Test 
