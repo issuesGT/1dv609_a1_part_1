@@ -62,3 +62,16 @@ Create a table like this one for all the bugs and Tests, showing which test fail
 
 
 
+| Method | IPassword | BugDoesNotTrim | BugToShortPassword | BugVeryShort | BugWrongExceptionMessage | BugMissingPasswordLengthCheck | BugMissingNumberCheck | BugIsPasswordSameAlwaysTrue | BugWrongHashingAlgorithm | Custom |
+|--------|-----------|----------------|---------------------|--------------|---------------------------|-------------------------------|------------------------|-----------------------------|---------------------------| -------- |
+| shouldAlwaysPass | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅
+| shouldRejectPasswordToShort | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | ✅
+| shouldRejectPasswordToShortWithWhiteSpace | ✅ | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ | ✅ | ✅ | ✅
+| shouldRejectPasswordWithoutNumber | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | ✅
+| shouldRejectPasswordOneBeneathLimit | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | ✅ | ✅ | ✅
+| shouldReturnCorrectExceptionMessageForToShortPassword | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅
+| shouldReturnIfPasswordIsSame | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅
+| shouldRejectIfPasswordIsNotSame | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ✅
+| Coverage | 100% | 100% | 100% | 100% | 100% | 100% | 100% | 95% | 98% | 100% |
+
+

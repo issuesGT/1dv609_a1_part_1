@@ -53,4 +53,28 @@ A bug in the SwedishSecurityNumber must not fail due to a bug in SSNHelper.
 
 
 
+| Method                                      | SSNHelper | SwedishSocialSecurityNumber | BuggySSNHelperAllowDayUpTo30 | BuggySSNHelperAllowMonth0 | BuggySSNHelperIncorrectFormat | BuggySSNHelperIncorrectFormatFalse | BuggySSNHelperMessyLuhn | BuggySSNHelperWrongLength | BuggySwedishSocialSecurityNumberNoLenCheck | BuggySwedishSocialSecurityNumberNoLuhn | BuggySwedishSocialSecurityNumberNoTrim | BuggySwedishSocialSecurityNumberWrongYear |
+|---------------------------------------------|-----------|------------------------------|-------------------------------|----------------------------|--------------------------------|-------------------------------------|--------------------------|----------------------------|--------------------------------------------|----------------------------------------|-----------------------------------------|-------------------------------------------|
+| shouldAcceptValidSSN                        | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
+| shouldRejectIncorrectLength                 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
+| shouldTrimPassword                           | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ |
+| shouldRejectInvalidYear                     | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
+| shouldRejectIncorrectFormat                 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| shouldRejectIncorrectDay                    | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| shouldRejectIncorrectMonth                  | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| shouldRejectIncorrectLuhn                   | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ |
+| shouldReturnHelperCorrectLength             | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| shouldRejectHelperIncorrectLengthToShort    | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| shouldRejectHelperIncorrectLengthToLong     | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| shouldReturnHelperCorrectDay                | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| shouldRejectHelperIncorrectDay              | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| shouldReturnHelperCorrectMonth              | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| shouldRejectHelperIncorrectMonth            | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| shouldReturnHelperCorrectFormat             | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| shouldRejectHelperIncorrectFormat           | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| shouldReturnHelperIsCorrectLuhn             | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| shouldRejectHelperIsIncorrectLuhn           | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Coverage | 100% | 96% | 100% | 100% | 100% | 100% | 97% | 100% | 96% | 96% | 96% | 89% |
+
+
 
